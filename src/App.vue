@@ -1,17 +1,12 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view></router-view>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
@@ -22,5 +17,148 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f9f9f9;
+}
+.container {
+  width: 100%;
+
+  min-height: 100vh;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  background-color: #8b8b8b;
+  gap: 2vw;
+  padding: 5vw;
+}
+
+.form {
+  max-width: 425px;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+form .field {
+  position: relative;
+}
+
+.eye-icon {
+  font-size: center;
+  color: #8b8b8b;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding: 5px;
+}
+
+header {
+  font-size: 5vw;
+  font-weight: 600;
+  color: black;
+  text-align: center;
+}
+
+form {
+  margin-top: 2vh;
+}
+
+form .field {
+  height: 45px;
+  width: 100%;
+  margin-top: 3vh;
+}
+
+.field input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+.field,
+.button-login {
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background-color: black;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-field-sign-up {
+  margin-top: 1vh;
+  justify-self: end;
+  align-self: center;
+}
+
+.button-field-sign-up a {
+  text-decoration: none;
+  color: blue;
+}
+
+.field input {
+  border: 1px solid #8b8b8b;
+  padding: 1vw;
+  border-radius: 8px;
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 2vh;
+  width: 100%;
+  gap: 0.5vw;
+}
+
+.button-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-link {
+  margin-top: 2vh;
+  text-align: center;
+}
+
+.message {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2vw;
+  color: green;
+  text-align: center;
+  font-size: 2.5vw;
+  font-weight: 600;
+  width: 80%;
+}
+
+#camera {
+  width: 100%;
+  height: 50vh;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
 }
 </style>
