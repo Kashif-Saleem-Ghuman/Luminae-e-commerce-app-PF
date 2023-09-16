@@ -57,17 +57,24 @@ import { ref } from "vue";
 import { defineProps } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
+// refs
 const user = ref(null);
 const router = useRouter();
+
+// state
+const username = ref("");
+const password = ref("0lelplR");
 
 // create an async function to fetch the api usig axios
 
 const getUserData = async () => {
   try {
     const response = await axios.post("https://dummyjson.com/auth/login", {
-      username: "kminchelle",
-      password: "0lelplR",
+      username: username.value,
+      password: password.value,
     });
     const data = await response.data;
     //store data in user ref
@@ -77,14 +84,25 @@ const getUserData = async () => {
   }
 };
 
+// Toast notifications
+const toastNotificationsError = (message) => {
+  toast.error(message, {
+    position: "top-center",
+    duration: 3000,
+  });
+};
 //Function to validate form fields
 const valditeFormInputs = async () => {
   await getUserData();
   if (username.value === "" || password.value === "") {
-    alert("please fill out all the fields");
+    // alert("please fill out all the fields");
+    //send a toast error message
+    toastNotificationsError("please fill out all the fields");
+    return false;
+  } else {
+    return true;
   }
 };
-
 // Function to set the user data to local storage
 const storeDataToLocalStorage = (name, data) => {
   localStorage.setItem(name, JSON.stringify(data));
@@ -98,10 +116,16 @@ const redirectToPage = (page) => {
 //Function to submit the form
 const submitForm = async (e) => {
   e.preventDefault();
-  await valditeFormInputs();
-  await getUserData();
-  storeDataToLocalStorage("UserData", user.value);
-  redirectToPage("/product-categories");
+  // if validation is successful then store the data to local storage
+  const isValid = await valditeFormInputs();
+  console.log("isValid", isValid);
+  // check if validateFormInputs is true then store the data to local storage and redirect to page
+  //please not since the the username and password are harcoded in the refs so isValid will always be true
+  if (isValid) {
+    console.log("I am working");
+    storeDataToLocalStorage("UserData", user.value);
+    redirectToPage("/product-categories");
+  }
 };
 
 // Props
@@ -112,30 +136,4 @@ const props = defineProps({
     default: "Login asdasd",
   },
 });
-
-// state
-const username = ref("kminchelle");
-const password = ref("0lelplR");
-
-//actions on submit form add data to local storage
-
-// const addLoginData = () => {
-//   const loginData = {
-//     email: email.value,
-//     password: password.value,
-//   };
-
-//   // validate the form
-//   if (!email.value || !password.value) {
-//     alert("Please fill out all the fields");
-//     return;
-//   } else {
-//     localStorage.setItem("loginData", JSON.stringify(loginData));
-//     // empty the form
-//     email.value = "";
-//     password.value = "";
-//     alert("Login Successful");
-//     window.location.href = "./index.html";
-//   }
-// };
 </script>
