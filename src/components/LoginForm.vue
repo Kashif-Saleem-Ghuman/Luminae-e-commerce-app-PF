@@ -25,7 +25,7 @@
         </div>
         <div class="btn-wrapper">
           <div class="field">
-            <button @click="getUserData" class="button-login">Login</button>
+            <button @click="submitForm" class="button-login">Login</button>
           </div>
 
           <div class="button-field-sign-up">
@@ -56,30 +56,52 @@ export default {
 import { ref } from "vue";
 import { defineProps } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 const user = ref(null);
+const router = useRouter();
 
 // create an async function to fetch the api usig axios
 
-const getUserData = async (e) => {
-  e.preventDefault();
+const getUserData = async () => {
   try {
     const response = await axios.post("https://dummyjson.com/auth/login", {
       username: "kminchelle",
       password: "0lelplR",
     });
     const data = await response.data;
+    //store data in user ref
     user.value = data;
-    console.log("User", user.value);
-    storeDataToLocalStorage("UserData", user.value);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  }
+};
+
+//Function to validate form fields
+const valditeFormInputs = async () => {
+  await getUserData();
+  if (username.value === "" || password.value === "") {
+    alert("please fill out all the fields");
   }
 };
 
 // Function to set the user data to local storage
 const storeDataToLocalStorage = (name, data) => {
   localStorage.setItem(name, JSON.stringify(data));
+};
+
+//Function to redirect to page
+const redirectToPage = (page) => {
+  router.push(page);
+};
+
+//Function to submit the form
+const submitForm = async (e) => {
+  e.preventDefault();
+  await valditeFormInputs();
+  await getUserData();
+  storeDataToLocalStorage("UserData", user.value);
+  redirectToPage("/product-categories");
 };
 
 // Props
