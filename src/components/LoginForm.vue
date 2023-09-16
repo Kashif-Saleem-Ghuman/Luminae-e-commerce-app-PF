@@ -55,32 +55,31 @@ export default {
 <script setup>
 import { ref } from "vue";
 import { defineProps } from "vue";
-// import axios from "axios";
+import axios from "axios";
 
 const user = ref(null);
 
-// create an async functio to fetch the api usig axios
-// c
+// create an async function to fetch the api usig axios
 
 const getUserData = async (e) => {
   e.preventDefault();
-
-  console.log("clicked");
-  await fetch("https://dummyjson.com/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+  try {
+    const response = await axios.post("https://dummyjson.com/auth/login", {
       username: "kminchelle",
       password: "0lelplR",
-      // expiresInMins: 60, // optional
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      // console.log(data);
-      user.value = data;
-      console.log("User", user.value);
     });
+    const data = await response.data;
+    user.value = data;
+    console.log("User", user.value);
+    storeDataToLocalStorage("UserData", user.value);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Function to set the user data to local storage
+const storeDataToLocalStorage = (name, data) => {
+  localStorage.setItem(name, JSON.stringify(data));
 };
 
 // Props
