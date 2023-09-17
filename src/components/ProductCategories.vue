@@ -1,16 +1,40 @@
 <template>
-  <h1>Welcome {{ user.user.username }}</h1>
-  <p>Here is a list of the product categories: 
-    <ul v-for="(productCategory,index) of productCategories.categories" :key="index">
-      <li >
-        {{ productCategory}}
+  <h2 v-if="user && user.user.username">Welcome {{ user.user.username }}</h2>
+  <div v-if="productCategories.categories">
+    Here is a list of the product categories:
+    <ul
+      v-for="(productCategory, index) of productCategories.categories"
+      :key="index"
+    >
+      <br />
+
+      <li>
+        {{ productCategory }}
       </li>
     </ul>
-  </p>
-  <input
-    type="text"
-    placeholder="name of product"
-  />
+  </div>
+  <div v-if="productCategories.products">
+    List of all products:
+
+    <ul v-for="item in productCategories.products.products" :key="item.id">
+      <li>id: {{ item.id }}</li>
+      <li>title: {{ item.title }}</li>
+      <li>description: {{ item.description }}</li>
+      <li>price: {{ item.price }}</li>
+      <li>discount: {{ item.discountPercentage }}</li>
+      <li>rating: {{ item.rating }}</li>
+      <li>stock: {{ item.stock }}</li>
+      <li>brand: {{ item.brand }}</li>
+      <li>category: {{ item.category }}</li>
+      <img :src="item.thumbnail" alt="thumbnail" />
+      <!-- <li>images: {{ item.images }}</li> -->
+      <!-- display images -->
+      <div v-for="image in item.images" :key="image.id">
+        <img :src="image" alt="product image" />
+      </div>
+    </ul>
+  </div>
+  <input type="text" placeholder="name of product" />
   <button @click="handleSubmit">Submit</button>
 </template>
 
@@ -21,6 +45,7 @@ import { useProductCategories } from "@/stores/ProductsCategoriesStore";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
+// init the store
 const userLoginData = useUserlogin();
 
 //destructuring the store state
@@ -29,19 +54,17 @@ const { user } = storeToRefs(userLoginData);
 //init the store
 const productCategoriesStore = useProductCategories();
 
-
 // destructuring the store state
 const { productCategories } = storeToRefs(productCategoriesStore);
 
 // destructuring the store action
-const { fetchProductsCategories } = productCategoriesStore;
+const { fetchProductsCategories, fetchAllProducts } = productCategoriesStore;
 
-
-console.log("State: ", productCategories
-);
+console.log("State: ", productCategories);
 
 // onmount hook
 onMounted(async () => {
   await fetchProductsCategories();
+  await fetchAllProducts();
 });
 </script>
