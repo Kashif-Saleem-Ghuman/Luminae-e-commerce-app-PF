@@ -1,9 +1,15 @@
 <template>
-  <h1>Name is {{ productCategories.name }}</h1>
+  <h1>Welcome {{ user.user.username }}</h1>
+  <p>Here is a list of the product categories: 
+    <ul>
+      <li v-for="(productCategory,index) in productCategories" :key="index">
+        {{ productCategory }}
+      </li>
+    </ul>
+  </p>
   <input
     type="text"
     placeholder="name of product"
-    v-model="productCategoryName"
   />
   <button @click="handleSubmit">Submit</button>
 </template>
@@ -11,31 +17,30 @@
 <script setup>
 import { useUserlogin } from "@/stores/UserLogin";
 
-import { useProductCategoriesStore } from "@/stores/ProductsCategoriesStore";
+import { useProductCategories } from "@/stores/ProductsCategoriesStore";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { onMounted } from "vue";
 
 const userLoginData = useUserlogin();
+
+//destructuring the store state
 const { user } = storeToRefs(userLoginData);
-console.log("User: ", user);
 
-const productCategoriesStore = useProductCategoriesStore();
+//init the store
+const productCategoriesStore = useProductCategories();
 
+
+// destructuring the store state
 const { productCategories } = storeToRefs(productCategoriesStore);
-console.log("State: ", productCategories);
-// ref for the form
-const productCategoryName = ref("");
-
-//destructuring the store productCategoriesStore;
 
 // destructuring the store action
-const { addProductCategory } = productCategoriesStore;
+const { fetchProductsCategories } = productCategoriesStore;
 
-// function to handle the submit
-const handleSubmit = () => {
-  addProductCategory(productCategoryName.value);
-  productCategoryName.value = "";
-};
 
-console.log()
+console.log("State: ", productCategories);
+
+// onmount hook
+onMounted(async () => {
+  await fetchProductsCategories();
+});
 </script>

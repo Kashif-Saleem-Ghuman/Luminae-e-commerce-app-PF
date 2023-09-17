@@ -21,7 +21,7 @@ const getUserData = async (username, password) => {
 // Store to handle the user login data and actions
 
 export const useUserlogin = defineStore("UserLogin", () => {
-  // This is the state of the store before feching data from the api
+  // This is the initial state of the store before feching data from the api
   const user = ref({
     user: {},
     isLoading: false,
