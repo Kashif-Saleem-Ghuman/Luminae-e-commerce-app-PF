@@ -20,7 +20,7 @@ export const useProductCategories = defineStore(
   () => {
     // This is the initial state of the store
     const productCategories = ref({
-      categories: [],
+      categories: null,
       isLoading: false,
       error: null,
     });

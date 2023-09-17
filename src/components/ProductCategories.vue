@@ -1,9 +1,9 @@
 <template>
   <h1>Welcome {{ user.user.username }}</h1>
   <p>Here is a list of the product categories: 
-    <ul>
-      <li v-for="(productCategory,index) in productCategories" :key="index">
-        {{ productCategory }}
+    <ul v-for="(productCategory,index) of productCategories.categories" :key="index">
+      <li >
+        {{ productCategory}}
       </li>
     </ul>
   </p>
@@ -37,7 +37,8 @@ const { productCategories } = storeToRefs(productCategoriesStore);
 const { fetchProductsCategories } = productCategoriesStore;
 
 
-console.log("State: ", productCategories);
+console.log("State: ", productCategories
+);
 
 // onmount hook
 onMounted(async () => {
