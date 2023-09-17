@@ -51,7 +51,7 @@ const user = ref(null);
 const router = useRouter();
 
 // state
-const username = ref("");
+const username = ref("kminchelle");
 const password = ref("0lelplR");
 
 // create an async function to fetch the api usig axios
@@ -77,6 +77,7 @@ const toastNotificationsError = (message) => {
     duration: 3000,
   });
 };
+
 //Function to validate form fields
 const valditeFormInputs = async () => {
   await getUserData();
@@ -108,7 +109,6 @@ const submitForm = async (e) => {
   // check if validateFormInputs is true then store the data to local storage and redirect to page
   //please not since the the username and password are harcoded in the refs so isValid will always be true
   if (isValid) {
-    console.log("I am working");
     storeDataToLocalStorage("UserData", user.value);
     redirectToPage("/product-categories");
   }
