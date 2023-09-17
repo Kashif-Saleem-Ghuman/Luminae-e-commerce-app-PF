@@ -1,7 +1,7 @@
 <template>
   <h2 v-if="user && user.user.username">Welcome {{ user.user.username }}</h2>
   <div v-if="productCategories.categories">
-    Here is a list of the product categories:
+    list of the product categories:
     <ul
       v-for="(productCategory, index) of productCategories.categories"
       :key="index"
@@ -16,7 +16,11 @@
   <div v-if="productCategories.products">
     List of all products:
 
-    <ul v-for="item in productCategories.products.products" :key="item.id">
+    <ul
+      @click="showProductDetails(item.id)"
+      v-for="item in productCategories.products.products"
+      :key="item.id"
+    >
       <li>id: {{ item.id }}</li>
       <li>title: {{ item.title }}</li>
       <li>description: {{ item.description }}</li>
@@ -40,10 +44,13 @@
 
 <script setup>
 import { useUserlogin } from "@/stores/UserLogin";
-
 import { useProductCategories } from "@/stores/ProductsCategoriesStore";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
+
+const router = useRouter();
 
 // init the store
 const userLoginData = useUserlogin();
@@ -58,9 +65,21 @@ const productCategoriesStore = useProductCategories();
 const { productCategories } = storeToRefs(productCategoriesStore);
 
 // destructuring the store action
-const { fetchProductsCategories, fetchAllProducts } = productCategoriesStore;
+const { fetchProductsCategories, fetchAllProducts, updateSingleProduct } =
+  productCategoriesStore;
 
-console.log("State: ", productCategories);
+// method for showing product details
+const showProductDetails = async (id) => {
+  try {
+    const response = await axios.get(`https://dummyjson.com/products/${id}`);
+    // console.log(response.data);
+    updateSingleProduct(response.data);
+    console.log(productCategories.singleProduct);
+    router.push("/product-details");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // onmount hook
 onMounted(async () => {

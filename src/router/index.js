@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import ProductCategories from "@/components/ProductCategories";
 import SignUpForm from "@/components/SignUpForm";
 import LoginForm from "@/components/LoginForm";
+import ProductDetails from "@/components/ProductDetails";
+
 const routes = [
   {
     path: "/",
@@ -18,6 +20,11 @@ const routes = [
     path: "/login",
     name: "LoginForm",
     component: <LoginForm title="Login" />,
+  },
+  {
+    path: "/product-details",
+    name: "ProductDetails",
+    component: ProductDetails,
   },
 ];
 

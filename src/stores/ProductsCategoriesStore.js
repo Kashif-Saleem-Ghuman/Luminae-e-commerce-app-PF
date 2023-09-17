@@ -60,10 +60,16 @@ export const useProductCategories = defineStore(
         console.log(error);
       }
     };
+
+    //action to update the single product
+    const updateSingleProduct = (product) => {
+      productCategories.value.singleProduct = product;
+    };
     return {
       productCategories,
       fetchProductsCategories,
       fetchAllProducts,
+      updateSingleProduct,
     };
   }
 );
