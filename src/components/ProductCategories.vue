@@ -1,18 +1,20 @@
 <template>
   <h2 v-if="user && user.user.username">Welcome {{ user.user.username }}</h2>
   <div v-if="productCategories.categories">
-    list of the product categories:
-    <ul
-      v-for="(productCategory, index) of productCategories.categories"
-      :key="index"
+    <h1 class="font-weight-bold h1 text-capitalize">product categories</h1>
+    <div
+      class="text-capitalize font-weight-bold text-center row row-cols-1 row-cols-sm-3 list-unstyled my-5"
     >
-      <br />
-
-      <li>
+      <div
+        class="col my-3"
+        v-for="(productCategory, index) of productCategories.categories"
+        :key="index"
+      >
         {{ productCategory }}
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
+
   <div v-if="productCategories.products">
     List of all products:
 
@@ -39,7 +41,7 @@
     </ul>
   </div>
   <input type="text" placeholder="name of product" />
-  <button @click="handleSubmit">Submit</button>
+  <button class="btn btn-primary" @click="handleSubmit">Submit</button>
 </template>
 
 <script setup>
