@@ -15,11 +15,11 @@
         class="mb-5"
       >
         <li class="col font-weight-bold h1 text-capitalize">
-          title: {{ item.title }}
+          {{ item.title }}
         </li>
         <img class="col" :src="item.thumbnail" alt="thumbnail" />
         <li class="col my-1">description: {{ item.description }}</li>
-        <li class="col">price: {{ item.price }}</li>
+        <li class="col">price: $ {{ item.price }}</li>
         <li class="col my-1">discount: {{ item.discountPercentage }}</li>
         <li class="col">rating: {{ item.rating }}</li>
         <li class="col my-1">stock: {{ item.stock }}</li>

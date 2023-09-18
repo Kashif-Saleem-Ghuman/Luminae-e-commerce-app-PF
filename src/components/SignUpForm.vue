@@ -103,7 +103,7 @@ const storeDataToLocalStorage = (name, data) => {
 const redirectToPage = (page) => {
   setTimeout(() => {
     router.push(page);
-  }, 5000);
+  }, 3000);
 };
 
 //Function to submit the form
