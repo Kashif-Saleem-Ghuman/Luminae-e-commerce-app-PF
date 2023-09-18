@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2>Product Details</h2>
+    <h2>Product Detail</h2>
     <p
       v-if="productCategories.singleProduct"
      
     >
-    <ul  v-for="item in productCategories.singleProduct" :key="item.id">
-      <li>Title: {{ item}}</li>
+    <ul class="text-capitalize font-weight-bold text-center row row-cols-1 row-cols-sm-1 list-unstyled my-5" >
+      <li class="col" v-for="item in productCategories.singleProduct" :key="item.id">Title: {{ item}}</li>
     </ul>
     </p>
     <div>{{ productCategories.singleProduct }}</div>

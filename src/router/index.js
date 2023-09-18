@@ -4,6 +4,7 @@ import ProductCategories from "@/components/ProductCategories";
 import SignUpForm from "@/components/SignUpForm";
 import LoginForm from "@/components/LoginForm";
 import ProductDetails from "@/components/ProductDetails";
+import ProductList from "@/components/ProductsListOfCategory";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path: "/product-details",
     name: "ProductDetails",
     component: ProductDetails,
+  },
+  {
+    path: "/product-list",
+    name: "ProductList",
+    component: ProductList,
   },
 ];
 

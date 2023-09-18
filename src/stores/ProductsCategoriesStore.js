@@ -32,6 +32,7 @@ export const useProductCategories = defineStore(
     const productCategories = ref({
       categories: null,
       products: null,
+      productBasedOnCategory: null,
       singleProduct: null,
       isLoading: false,
       error: null,
@@ -65,11 +66,16 @@ export const useProductCategories = defineStore(
     const updateSingleProduct = (product) => {
       productCategories.value.singleProduct = product;
     };
+    // Action to update the product based on the category
+    const updateProductBasedOnCategory = (category) => {
+      productCategories.value.productBasedOnCategory = category;
+    };
     return {
       productCategories,
       fetchProductsCategories,
       fetchAllProducts,
       updateSingleProduct,
+      updateProductBasedOnCategory,
     };
   }
 );
